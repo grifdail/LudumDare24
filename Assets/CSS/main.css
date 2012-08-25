@@ -1,0 +1,136 @@
+*{
+	padding: 0px;
+	margin: 0px;
+}
+
+html, body
+{
+	height: 100%;
+	width: 100%;
+	font-family: 'Quantico', sans-serif;
+}
+
+body
+{
+	background: #072155;
+}
+
+h1
+{
+	font-family: 'Orbitron', sans-serif;
+}
+
+#Index-div
+{
+	background: #ffffff;
+	border-radius: 25px;
+	width: 500px;
+	margin: auto;
+	margin-top: 100px;
+	padding: 20px;
+	box-shadow: 0px 0px 125px rgba(255,255,255,0.8), 0px 0px 15px rgba(0,0,0,0.9) inset;
+}
+
+#Main
+{
+	width: 900px;
+	margin: auto;
+	background: #8ea5d3;
+	height:100%
+}
+
+canvas
+{
+	display: block;
+	margin: auto;
+	margin-top: 100px;
+	background: #ffffff;
+	padding: 20px;
+	box-shadow: 0px 1px 15px rgba(0,0,0,0.8), 0px -1px 15px rgba(0,0,0,0.8);
+}
+
+header
+{
+	padding: 15px;
+	border-bottom: 2px #000000 solid;
+}
+
+.button, .pbutton
+{
+	color: #170358;
+	display: block;
+	margin: auto;
+	margin-top: 10px;
+	width: 200px;
+	padding: 5px;
+	border-radius: 5px;
+	box-shadow: 0px 3px 15px rgba(0,0,0,0.5);
+	text-decoration: none;
+	font-weight: default;
+	text-align: center;
+	background: #3c4cc3;
+}
+.button:hover
+{
+	box-shadow: 0px 3px 10px rgba(0,0,0,0.9);
+}
+.button:active
+{
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.9) inset;
+}
+
+.pbutton
+{
+	color: #170358;
+	background: #3c4cc3;
+	display: inline-block;
+	margin: 5px;
+}
+
+.basic{	color: #000000;		background: #9C9C9C;}
+.fire{	color: #801b00; 	background: #c42900;}
+.ice{	color: #599abe;		background: #0452c7;}
+.vegetal{	color: #009327;		background: #005f19;}
+.wind{	color: #9cae73;		background: #c9e8f7;}
+
+#Pannel
+{
+	width: 680px;
+	margin: auto;
+	margin-top: 20px;
+}
+
+#Planet
+{
+	display: none;
+}
+
+.box-perso
+{
+	padding: 20px;
+	display: inline-block;
+	text-align: center;
+	background: #fff;
+	height: 360px;
+	width: 260px;
+	margin: 10px;
+	box-shadow: 0px 0px 25px rgba(0,0,0,0.5);
+}
+#centered
+{
+	width: 660px;
+	margin: auto;
+}
+
+progress {
+   -webkit-appearance: none;
+   height: 20px;
+   width: 100%;
+   background: #BFBFBF;
+   margin-top: 15px;
+   box-shadow: 0px 0px 15px rgba(0,0,0,0.8)
+}
+progress::-webkit-progress-bar-value, progress::-webkit-progress-value,progress::-moz-progress-bar {
+	background-color: #FF1212;
+	border-radius: 10px;
+}
