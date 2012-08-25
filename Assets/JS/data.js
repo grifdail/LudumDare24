@@ -25,7 +25,17 @@ var Evolution = {
 		txt: "Attack",
 		hover:"A simple attack",
 		type: "at",
-		value: 35
+		value: 40,
+		sensibility: 10
+	},
+	Health: {
+		display: true,
+		class: "basic",
+		txt: "Healing",
+		hover:"Heal about 15Hp",
+		type: "rH",
+		value: 5,
+		sensibility: 5
 	},
 	FrozenDef: {
 		display: true,
@@ -33,19 +43,21 @@ var Evolution = {
 		txt: "Frozen defense",
 		hover:"Throw a powerfull Fireball",
 		type: "at",
-		value: 50
+		value: 50,
+		sensibility: 0
 	},
 	Stalactite: {
 		display: false,
 		class: "ice",
 		txt: "Stalactite",
 		hover:"Give you 30 more HP max",
-		type: "iH",
-		value: 30
+		type: "at",
+		value: 30,
+		sensibility: 5
 	},
 	Freeze: {
 		display: true,
-		class: "fire",
+		class: "ice",
 		txt: "Smoke",
 		hover:"Improve your deffense by 10",
 		type: "rD",
@@ -57,7 +69,8 @@ var Evolution = {
 		txt: "FireBall",
 		hover:"Throw a powerfull Fireball",
 		type: "at",
-		value: 50
+		value: 50,
+		sensibility: 20
 	},
 	Phenix: {
 		display: false,
@@ -65,7 +78,8 @@ var Evolution = {
 		txt: "Phenix",
 		hover:"Give you 30 more HP max",
 		type: "iH",
-		value: 30
+		value: 30,
+		sensibility: 0
 	},
 	Smoke: {
 		display: true,
@@ -73,15 +87,17 @@ var Evolution = {
 		txt: "Smoke",
 		hover:"Improve your deffense by 10",
 		type: "rD",
-		value: 10
+		value: 10,
+		sensibility: 0
 	},
 	Regeneration: {
 		display: true,
 		class: "vegetal",
 		txt: "Regeneration",
-		hover:"Healt you 25hp",
+		hover:"Healt you about 25hp",
 		type: "rH",
-		value: 25
+		value: 25,
+		sensibility: 10
 	},
 	Growing: {
 		display: false,
@@ -89,7 +105,8 @@ var Evolution = {
 		txt: "Growing",
 		hover:"Give you 30 more HP max",
 		type: "iH",
-		value: 30
+		value: 30,
+		sensibility: 0
 	},
 	Solid: {
 		display: false,
@@ -97,6 +114,7 @@ var Evolution = {
 		txt: "Solidity",
 		hover:"Improve your natural deffense by 10",
 		type: "iD",
-		value: 10
+		value: 10,
+		sensibility: 0
 	}
 }
