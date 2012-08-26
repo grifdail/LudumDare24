@@ -15,13 +15,11 @@ function updateLog(value,force) {
 		if (log[3] != value)  {
 			log.splice(0,1);
 			log.push(value);
-			console.log(value);
 		}
     }
     else {
 		log.splice(0,1);
 		log.push(value)
-		console.log(value)
 	}
 	$("#log p:eq(0)").html(log[0]);
 	$("#log p:eq(1)").html(log[1]);
@@ -53,6 +51,7 @@ function endWorld() {
 				.hover(function() { $("#description").html(Evolution[$(this).attr("data-Evo")].hover)},function() { $("#description").html("")})
 		}
 		Criminal.addEvolution(Level[actualLevel].evolution[rand(3)]);
+		Criminal.iHealmax(25);
 		$('<p id="description"></p>').appendTo($(".modal-box"))
 		$(".modal").fadeIn("slow");
 	}
@@ -81,24 +80,42 @@ function useEvolution(e) {
 	if (rand(1))
 	{
 		order.push(Player,Criminal);
-		action.push(PlayerUse,Criminal.ai/*cue[parseInt(alea)]*/);
+		action.push(PlayerUse,Criminal.ai()/*cue[parseInt(alea)]*/);
 	}
 	else
 	{
 		order.push(Criminal,Player);
-		action.push(/*cue[parseInt(alea)]*/Criminal.ai,PlayerUse);
+		action.push(/*cue[parseInt(alea)]*/Criminal.ai(),PlayerUse);
 	}
 	updateLog("***")
 	for (var i=0;i<2;i++)
 	{
+		console.log("tours de " +order[i].name)
 		var evolutionUsed = Evolution[action[i]];
-		alea = rand(evolutionUsed.sensibility*2)-evolutionUsed.sensibility
-		console.log(alea)
 		switch (evolutionUsed.type) 
 		{
-			case "at": updateLog(order[i].name +" attack and deal "+ parseInt(order[Math.abs(i-1)].hurt(evolutionUsed.value+alea)) +" damages.");break;
-			case "rH": order[i].health(evolutionUsed.value+alea);updateLog(order[i].name +" restore "+ parseInt(evolutionUsed.value+alea) +" health points.");break;
-			case "rD": order[i].iDef(evolutionUsed.value+alea);updateLog(order[i].name +" earn "+ parseInt(evolutionUsed.value+alea) +" deffense point.");break;
+			case "at": 
+				console.log(order[i].name, "attaque")
+				updateLog(order[i].name +" attack and deal "+ parseInt(order[Math.abs(i-1)].hurt(evolutionUsed.value)) +" damages.");
+				break;
+			case "rH": 
+				console.log(order[i].name, " se soigne")
+				order[i].health(evolutionUsed.value);
+				var text = order[i].name +" regain "+ parseInt(evolutionUsed.value) +" health points."
+				updateLog(text);
+				break;
+			case "rD": 
+				console.log(order[i].name, "aumment sa deffense")
+				order[i].iDef(evolutionUsed.value);
+				var text = ((order[i].id=="#GoodCard") ? "Your defense increase." : "Doctor Goodguy's defense increase.");
+				updateLog(text);
+				break;
+			case "aD": 
+				console.log(order[i].name, "attaque la deffense")
+				order[Math.abs(i-1)].iDef(evolutionUsed.value);
+				var text = ((order[i].id=="#BadCard") ? "Your defense decrease." : "Doctor Goodguy's defense decrease.")
+				updateLog(text);
+				break;
 		}
 		if (( order[i].life<=0) || ( order[i].enemy.life<=0))
 		{
@@ -106,8 +123,10 @@ function useEvolution(e) {
 			return endWorld();
 		}
 	}
+	console.log("fin du tour " )
 	Player.updateBar();
 	Criminal.updateBar();
+	forcecoup =""
 }
 
 function initlevel(lvl) {

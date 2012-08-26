@@ -1,10 +1,12 @@
 
+var forcecoup = ""
+
 function Human(id,name) {
 	this.Maxlife = 100;
 	this.life = 100;
 	this.def = 1.0
 	this.Maxdef = 1.0
-	this.evolution = ['Attack',"Health"];
+	this.evolution = ['Attack',"Health","Concentration"];
 	this.enemy = null;
 	this.id = id;
 	this.name = name
@@ -22,9 +24,10 @@ function Human(id,name) {
 	}
 	
 	this.hurt = function(damage) {
-		this.life -= (((damage-this.def)>0) ? (damage-this.def) : 0)
+		this.life -= parseInt(damage*this.def)
+		console.log(this.name,damage,this.def,damage*this.def)
 		if (this.life <= 0) {	this.life=0	};
-		return (((damage-this.def)>0) ? (damage-this.def) : 0);
+		return (damage*this.def)
 	};
 	
 	this.health = function(value) {
@@ -34,10 +37,15 @@ function Human(id,name) {
 	};
 	
 	this.iDef = function(value) {
-		this.def += (value)
+		this.def += (value);
+		if (this.def < 0.3)  {this.def = 0.3}
+		if (this.def > 2)  {this.def = 2}
+		return this.def;
 	};
 	this.iDefmax = function(value) {
 		this.Maxdef += (value)
+		if (this.Maxdef < 0.3)  {this.Maxdef = 0.3}
+		if (this.Maxdef > 1.9)  {this.Maxdef = 1.9}
 	};
 	this.iHealmax = function(value) {
 		this.Maxlife += (value)
@@ -58,6 +66,7 @@ function Human(id,name) {
 	}
 	
 	this.ai = function() {
+		if (forcecoup != "") {return forceoup}
 		if (this.life <= this.Maxlife/4)
 		{
 			var healing = ""
@@ -65,12 +74,20 @@ function Human(id,name) {
 			if (healing == -1) { healing = this.evolution.indexOf("Health"); } //Health
 			return this.evolution[healing]
 		}
-		else
+		else if (this.def > 0.8)
 		{
 			var attack = ""
-			attack  = this.evolution.indexOf("FireBall");
+			attack  = this.evolution.indexOf("Smoke");
 			if (attack  == -1) { attack  = this.evolution.indexOf("Stalactite"); } //Health
 			if (attack  == -1) { attack  = this.evolution.indexOf("Attack"); } //Health
+			return this.evolution[attack];
+		}
+		else
+		{
+			
+			var attack = ""
+			attack  = this.evolution.indexOf("FireBall");
+			if (attack  == -1) { attack  = this.evolution.indexOf("Concentration"); } //Health
 			return this.evolution[attack];
 		}
 	}
