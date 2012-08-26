@@ -1,20 +1,26 @@
-var Levelone = {
+
+var Level = [ {
+	//level 1
 	name:"coooold",
 	under:"B1-322c: The ice planet.",
 	back:"Background1.png",
-}
-
-var Leveltwo = {
+	class: "frozen",
+	evolution: ["FrozenDef","Stalactite","Freeze"]
+},{ //level 2
 	name:"Hooot",
 	under:"A8-642: The fire world.",
 	back:"Background2.png",
-}
-
-var Levelthree= {
+	class: "burn",
+	evolution: ["FireBall","Phenix","Smoke"]
+},{ //level 3
 	name:"Treeeee",
 	under:"T48-DE5d: The vegetal world.",
 	back:"Background3.png",
+	class: "natural",
+	evolution: ["Regeneration","Growing","Solid"]
 }
+
+]
 
 
 var Evolution = {
@@ -40,27 +46,27 @@ var Evolution = {
 	FrozenDef: {
 		display: true,
 		class: "ice",
-		txt: "Frozen defense",
-		hover:"Throw a powerfull Fireball",
-		type: "at",
-		value: 50,
-		sensibility: 0
-	},
-	Stalactite: {
-		display: false,
-		class: "ice",
-		txt: "Stalactite",
-		hover:"Give you 30 more HP max",
-		type: "at",
-		value: 30,
+		txt: "Ice skin",
+		hover:"Improve your defense by about 10",
+		type: "rd",
+		value: 10,
 		sensibility: 5
 	},
-	Freeze: {
+	Stalactite: {
 		display: true,
 		class: "ice",
-		txt: "Smoke",
-		hover:"Improve your deffense by 10",
-		type: "rD",
+		txt: "Stalactite",
+		hover:"Trow a stalactite to your opponent.",
+		type: "at",
+		value: 45,
+		sensibility: 20
+	},
+	Freeze: {
+		display: false,
+		class: "ice",
+		txt: "snow",
+		hover:"Improve your natural deffense by 10",
+		type: "iD",
 		value: 10
 	},
 	FireBall: {
@@ -76,9 +82,9 @@ var Evolution = {
 		display: false,
 		class: "fire",
 		txt: "Phenix",
-		hover:"Give you 30 more HP max",
+		hover:"Give you 50 more HP max",
 		type: "iH",
-		value: 30,
+		value: 50,
 		sensibility: 0
 	},
 	Smoke: {
@@ -103,9 +109,9 @@ var Evolution = {
 		display: false,
 		class: "vegetal",
 		txt: "Growing",
-		hover:"Give you 30 more HP max",
+		hover:"Give you 0 more HP max",
 		type: "iH",
-		value: 30,
+		value: 50,
 		sensibility: 0
 	},
 	Solid: {

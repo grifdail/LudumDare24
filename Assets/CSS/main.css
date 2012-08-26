@@ -15,7 +15,24 @@ body
 	background: #072155;
 }
 
-h1
+#Main
+{
+	width: 900px;
+	margin: auto;
+	background: #8ea5d3;
+	height:100%
+}
+
+Body.frozen{ background: #086ca2}
+Body.frozen #Main{ background: #64aad0}
+
+Body.burn{ background: #ff5600}
+Body.burn #Main{ background: #ff8040}
+
+Body.natural{ background: #175102}
+Body.natural #Main{ background: #257c05}
+
+h1,h2,h3,h4,h5,h6
 {
 	font-family: 'Orbitron', sans-serif;
 }
@@ -31,13 +48,7 @@ h1
 	box-shadow: 0px 0px 125px rgba(255,255,255,0.8), 0px 0px 15px rgba(0,0,0,0.9) inset;
 }
 
-#Main
-{
-	width: 900px;
-	margin: auto;
-	background: #8ea5d3;
-	height:100%
-}
+
 
 canvas
 {
@@ -95,9 +106,10 @@ header
 
 #Pannel
 {
-	width: 680px;
+	width: 700px;
 	margin: auto;
 	margin-top: 20px;
+	text-align: center;
 }
 
 #Planet
@@ -111,7 +123,7 @@ header
 	display: inline-block;
 	text-align: center;
 	background: #fff;
-	height: 360px;
+	height: 320px;
 	width: 260px;
 	margin: 10px;
 	box-shadow: 0px 0px 25px rgba(0,0,0,0.5);
@@ -162,7 +174,32 @@ header
 	min-height: 100px;
 	margin:auto;
 	margin-top: 100px;
+	text-align: center;
+}
+.modal-box p
+{
+	margin-bottom: 15px;
+}
+#description
+{
+	text-align: center;
 }
 
+#log
+{
+	box-shadow: 0px 0px 25px rgba(0,0,0,0.5);
+	border-radius: 10px;
+	width: 90%;
+	margin: auto;
+	margin-top: 10px;
+	background: #fff;
+	text-align: center;
+	padding: 10px;
+}
+#log p
+{
+	font-size: 15px;
+	font-family: 'Ubuntu Mono', sans-serif;
+}
 
 
