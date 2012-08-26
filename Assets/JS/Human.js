@@ -9,7 +9,7 @@ function Human(id,name) {
 	this.evolution = ['Attack',"Health","Concentration"];
 	this.enemy = null;
 	this.id = id;
-	this.name = name
+	this.name = name;
 	
 	this.reset = function() {
 		this.life = this.Maxlife;
@@ -25,7 +25,6 @@ function Human(id,name) {
 	
 	this.hurt = function(damage) {
 		this.life -= parseInt(damage*this.def)
-		console.log(this.name,damage,this.def,damage*this.def)
 		if (this.life <= 0) {	this.life=0	};
 		return (damage*this.def)
 	};
@@ -74,20 +73,19 @@ function Human(id,name) {
 			if (healing == -1) { healing = this.evolution.indexOf("Health"); } //Health
 			return this.evolution[healing]
 		}
-		else if (this.def > 0.8)
+		else if (rand(2))
+		{
+			var attack = ""
+			attack  = this.evolution.indexOf("FireBall");
+			if (attack  == -1) { attack  = this.evolution.indexOf("Concentration"); } //Health
+			return this.evolution[attack];
+		}
+		else
 		{
 			var attack = ""
 			attack  = this.evolution.indexOf("Smoke");
 			if (attack  == -1) { attack  = this.evolution.indexOf("Stalactite"); } //Health
 			if (attack  == -1) { attack  = this.evolution.indexOf("Attack"); } //Health
-			return this.evolution[attack];
-		}
-		else
-		{
-			
-			var attack = ""
-			attack  = this.evolution.indexOf("FireBall");
-			if (attack  == -1) { attack  = this.evolution.indexOf("Concentration"); } //Health
 			return this.evolution[attack];
 		}
 	}

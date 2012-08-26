@@ -31,10 +31,14 @@ function addEvolution(e) {
 	e.preventDefault();
 	var clicked = $(this).attr("data-Evo");
 	Player.addEvolution(clicked);
-	actualLevel++ ;
-	initlevel(Level[actualLevel] );
-	$(".modal").fadeOut("slow");
-	$("#Planet").show("slow");
+	$(this).remove();
+	
+	if (Player.evolution.length == (actualLevel+1)*2+3) {
+		actualLevel++ ;
+		initlevel(Level[actualLevel] );
+		$(".modal").fadeOut("slow");
+		$("#Planet").show("slow");
+	}
 }
 
 function endWorld() {
@@ -50,7 +54,9 @@ function endWorld() {
 				.on("click",addEvolution)
 				.hover(function() { $("#description").html(Evolution[$(this).attr("data-Evo")].hover)},function() { $("#description").html("")})
 		}
-		Criminal.addEvolution(Level[actualLevel].evolution[rand(3)]);
+		var cue = Level[actualLevel].evolution.sort(function() {return 0.5 - Math.random()})
+		Criminal.addEvolution(cue[0]);
+		Criminal.addEvolution(cue[1]);
 		Criminal.iHealmax(25);
 		$('<p id="description"></p>').appendTo($(".modal-box"))
 		$(".modal").fadeIn("slow");
@@ -90,28 +96,23 @@ function useEvolution(e) {
 	updateLog("***")
 	for (var i=0;i<2;i++)
 	{
-		console.log("tours de " +order[i].name)
 		var evolutionUsed = Evolution[action[i]];
 		switch (evolutionUsed.type) 
 		{
 			case "at": 
-				console.log(order[i].name, "attaque")
 				updateLog(order[i].name +" attack and deal "+ parseInt(order[Math.abs(i-1)].hurt(evolutionUsed.value)) +" damages.");
 				break;
 			case "rH": 
-				console.log(order[i].name, " se soigne")
 				order[i].health(evolutionUsed.value);
 				var text = order[i].name +" regain "+ parseInt(evolutionUsed.value) +" health points."
 				updateLog(text);
 				break;
 			case "rD": 
-				console.log(order[i].name, "aumment sa deffense")
 				order[i].iDef(evolutionUsed.value);
 				var text = ((order[i].id=="#GoodCard") ? "Your defense increase." : "Doctor Goodguy's defense increase.");
 				updateLog(text);
 				break;
 			case "aD": 
-				console.log(order[i].name, "attaque la deffense")
 				order[Math.abs(i-1)].iDef(evolutionUsed.value);
 				var text = ((order[i].id=="#BadCard") ? "Your defense decrease." : "Doctor Goodguy's defense decrease.")
 				updateLog(text);
@@ -123,7 +124,6 @@ function useEvolution(e) {
 			return endWorld();
 		}
 	}
-	console.log("fin du tour " )
 	Player.updateBar();
 	Criminal.updateBar();
 	forcecoup =""

@@ -64,7 +64,7 @@ var Evolution = {
 		txt: "Stalactite",
 		hover:"Trow a stalactite to your opponent.",
 		type: "at",
-		value: 40,
+		value: 30,
 	},
 	Freeze: {
 		display: false,
@@ -81,7 +81,7 @@ var Evolution = {
 		txt: "FireBall",
 		hover:"Throw a powerfull Fireball",
 		type: "at",
-		value: 50
+		value: 40
 	},
 	Phenix: {
 		display: false,
