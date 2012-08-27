@@ -1,13 +1,7 @@
 
 function rand(x) { return Math.floor(Math.random() * (x+1));}
 
-var Criminal = new Human("#BadCard","Doctor Badguy"),
-	Player = new Human("#GoodCard","You")
-var actualLevel = 0,
-	log = ["","","",""]
 
-Player.enemy=Criminal;
-Criminal.enemy=Player;
 
 function updateLog(value,force) {
 	
@@ -45,27 +39,40 @@ function endWorld() {
 	if (Criminal.life <= 0)
 	{	
 		$("#Planet").hide("slow");
-		$('.modal-box').html("<p>You just defeat Doctor BadGuy. <br /> Unfortunatly he run away to another planet</p><p>Wow! You're evolving !!!<br />Choose the evolution you want: </p>");
-		for (var i = 0; i < 3; i++) {
-			var a = $('<a href="#" id="e'+i+'" class="button evolutionb"></a>').appendTo($(".modal-box"))
-				.addClass(Evolution[Level[actualLevel].evolution[i]].class)
-				.html(Evolution[Level[actualLevel].evolution[i]].txt)
-				.attr("data-Evo",Level[actualLevel].evolution[i])
-				.on("click",addEvolution)
-				.hover(function() { $("#description").html(Evolution[$(this).attr("data-Evo")].hover)},function() { $("#description").html("")})
+		$(".modal-box div:last").html("")
+		if (actualLevel < 6) 
+		{
+			$('.modal-box div:first').html("<p>You just defeat Doctor Badguy.<br /> Unfortunately he runs away to another planet</p><p>Wow! You're evolving !!!<br />Choose the evolution you want: </p>");
+			for (var i = 0; i < 3; i++) {
+				var a = $('<a href="#" class="button evolutionb"></a>').appendTo($(".modal-box div:last"))
+					.addClass(Evolution[Level[actualLevel].evolution[i]].class)
+					.html(Evolution[Level[actualLevel].evolution[i]].txt)
+					.attr("data-Evo",Level[actualLevel].evolution[i])
+					.on("click",addEvolution)
+					.hover(function() { $(".description").html(Evolution[$(this).attr("data-Evo")].hover)},function() { $(".description").html("")})
+			}
+			/*var cue = Level[actualLevel].evolution.sort(function() {return 0.5 - Math.random()})*/
+			Criminal.addEvolution(IAevo[actualLevel][0]);
+			Criminal.addEvolution(IAevo[actualLevel][1]);
+			Criminal.iHealmax(25*Math.pow(actualLevel+1,1.3));
+			Player.iHealmax(25*Math.pow(actualLevel+1,1.3));
+			if (actualLevel == 5) {Criminal.iHealmax(500)};
 		}
-		var cue = Level[actualLevel].evolution.sort(function() {return 0.5 - Math.random()})
-		Criminal.addEvolution(cue[0]);
-		Criminal.addEvolution(cue[1]);
-		Criminal.iHealmax(25);
-		$('<p id="description"></p>').appendTo($(".modal-box"))
+		else
+		{
+			$(".modal").css("background","black")
+			$('.modal-box div:first').html("<p>You just defeat Doctor Badguy.</p>");
+			$(".modal-box div:last").html("")
+			$('<a href="outro.html" class="button">Continue...</a>').appendTo($(".modal-box div:last"))
+		}
 		$(".modal").fadeIn("slow");
 	}
 	else if  (Player.life <=0) 
 	{	
 		$("#Planet").hide("slow");
-		$('.modal-box').html("<p>Doctor BadGuy just defeat you.</p>");
-		$('<a href="#" class="button">Retry</a>').appendTo($(".modal-box")).on("click",function(e) {
+		$('.modal-box div:first').html("<p>Doctor Badguy just defeat you.</p>");
+		$(".modal-box div:last").html("")
+		$('<a href="#" class="button">Retry</a>').appendTo($(".modal-box div:last")).on("click",function(e) {
 			e.preventDefault();
 			initlevel(Level[actualLevel] );
 			$("#Planet").show("slow");
@@ -93,6 +100,7 @@ function useEvolution(e) {
 		order.push(Criminal,Player);
 		action.push(/*cue[parseInt(alea)]*/Criminal.ai(),PlayerUse);
 	}
+	console.log(order[0].name,order[0],action[0],order[1].name,order[1],action[1])
 	updateLog("***")
 	for (var i=0;i<2;i++)
 	{
@@ -100,7 +108,9 @@ function useEvolution(e) {
 		switch (evolutionUsed.type) 
 		{
 			case "at": 
-				updateLog(order[i].name +" attack and deal "+ parseInt(order[Math.abs(i-1)].hurt(evolutionUsed.value)) +" damages.");
+				var damage = parseInt(order[Math.abs(i-1)].hurt(evolutionUsed.value))
+				order[i].lastdamaged = damage;
+				updateLog(order[i].name +" attack and deal "+ damage +" damages.");
 				break;
 			case "rH": 
 				order[i].health(evolutionUsed.value);
@@ -109,12 +119,12 @@ function useEvolution(e) {
 				break;
 			case "rD": 
 				order[i].iDef(evolutionUsed.value);
-				var text = ((order[i].id=="#GoodCard") ? "Your defense increase." : "Doctor Goodguy's defense increase.");
+				var text = ((order[i].id=="#GoodCard") ? "Your defense increase." : "Doctor Badguy's defense increase.");
 				updateLog(text);
 				break;
 			case "aD": 
 				order[Math.abs(i-1)].iDef(evolutionUsed.value);
-				var text = ((order[i].id=="#BadCard") ? "Your defense decrease." : "Doctor Goodguy's defense decrease.")
+				var text = ((order[i].id=="#BadCard") ? "Your defense decrease." : "Doctor Badguy's defense decrease.")
 				updateLog(text);
 				break;
 		}
@@ -144,21 +154,24 @@ function initlevel(lvl) {
 	//pintcanvas.drawImage({source: "Assets/Images/badguy.png" , x: 480/2 , y:300/2});
 	for (var i = 0, c = Player.evolution.length; i < c; i++) {
 		if (Evolution[Player.evolution[i]].display) {
-			var a = $('<a href="#" id="e'+i+'" class="button evolutionb"></a>').appendTo($("#Pannel"))
+			var a = $('<a href="#"  class="button evolutionb"></a>').appendTo($("#Pannel"))
 				.addClass(Evolution[Player.evolution[i]].class)
 				.html(Evolution[Player.evolution[i]].txt)
 				.attr("data-Evo",Player.evolution[i])
 				.on("click",useEvolution)
-				.on("mouseover",function() { /*$("#description").html*/updateLog(Evolution[$(this).attr("data-Evo")].hover)})//,function() { $("#description").html("")})
+				.hover(function() { $(".description").html(Evolution[$(this).attr("data-Evo")].hover)},function() { $(".description").html("")})
 		}
 	}
 }
 
-
-
-//var canvas = ""
+function initGame() {
+Player.enemy=Criminal;
+Criminal.enemy=Player;
+Criminal.iDefmax(-0.1)
+}
+var Criminal = new Human("#BadCard","Doctor Badguy"),Player = new Human("#GoodCard","You"), actualLevel=0, log = ["","","",""]
 $().ready( function() {
-	//canvas = $("#GWindow")
+	initGame()
 	initlevel(Level[actualLevel] );
 	$("#Planet").show("slow");
 }

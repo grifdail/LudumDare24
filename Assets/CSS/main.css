@@ -20,7 +20,7 @@ body
 	width: 900px;
 	margin: auto;
 	background: #8ea5d3;
-	height:100%
+	min-height:100%;
 }
 
 Body.frozen{ background: #086ca2}
@@ -31,6 +31,18 @@ Body.burn #Main{ background: #ff8040}
 
 Body.natural{ background: #175102}
 Body.natural #Main{ background: #257c05}
+
+Body.windy{ background: #c6b094}
+Body.windy #Main{ background: #d9dfc3}
+
+Body.darky{ background: #202020}
+Body.darky #Main{ background: #c7c7c7}
+
+Body.sandy{ background: #f1dd5a}
+Body.sandy #Main{ background: #f8eca2}
+
+Body.moonlight{ background: #121210}
+Body.moonlight #Main{ background: #aaaaa4}
 
 h1,h2,h3,h4,h5,h6
 {
@@ -103,7 +115,8 @@ header
 .ice{	color: #599abe;		background: #0452c7;}
 .vegetal{	color: #009327;		background: #005f19;}
 .wind{	color: #9cae73;		background: #c9e8f7;}
-
+.dark{	color: #1f1f1f;		background: #3B3B3B;}
+.sand{	color: #b5a980;		background: #9d8b1d;}
 #Pannel
 {
 	width: 700px;
@@ -180,9 +193,11 @@ header
 {
 	margin-bottom: 15px;
 }
-#description
+
+.description
 {
 	text-align: center;
+	min-height: 29px;
 }
 
 #log
@@ -202,4 +217,14 @@ header
 	font-family: 'Ubuntu Mono', sans-serif;
 }
 
+#Index-div p
+{
+	margin-top: 15px;
+}
+
+
+li
+{
+	margin-left: 40px;
+}
 
